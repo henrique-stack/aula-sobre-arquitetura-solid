@@ -42,15 +42,14 @@ class UsersRepository implements IUsersRepository {
     return emailUser;
   }
 
-  turnAdmin(receivedUser: User): User {
-    const user: User[] = [];
+  turnAdmin(user: User): User {
+    const newUser = user;
 
-    user.map({
-      admin: true
-      updated_at: new Date(),
-    });
+    newUser.admin = true;
+    newUser.updated_at = new Date();
+
+    return newUser;
   }
-
   list(): User[] {
     return this.users;
   }
