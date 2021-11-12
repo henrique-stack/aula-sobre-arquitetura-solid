@@ -1,3 +1,5 @@
+import { v4 as uuidV4 } from "uuid";
+
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
@@ -10,14 +12,12 @@ class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   execute({ email, name }: IRequest): User {
-    const user = this.usersRepository.create({
-      email,
-      name,
-    });
+    const verifyEmail = this.usersRepository.findByEmail(email);
 
-    if (user.email === email) {
-      throw new Error("email already exists");
+    if (verifyEmail) {
+      throw new Error("email/name already exists");
     }
+    const user = this.usersRepository.create({ email, name });
 
     return user;
   }

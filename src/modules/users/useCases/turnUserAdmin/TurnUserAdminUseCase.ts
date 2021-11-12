@@ -12,6 +12,10 @@ class TurnUserAdminUseCase {
     const admin = this.usersRepository.findById(user_id);
     this.usersRepository.turnAdmin(admin);
 
+    if (!admin.email) {
+      throw new Error("Mensagem do erro");
+    }
+
     return admin;
   }
 }
