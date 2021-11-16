@@ -9,14 +9,14 @@ class TurnUserAdminUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   execute({ user_id }: IRequest): User {
-    const admin = this.usersRepository.findById(user_id);
-    this.usersRepository.turnAdmin(admin);
+    const user = this.usersRepository.findById(user_id);
+    this.usersRepository.turnAdmin(user);
 
-    if (!admin.email) {
-      throw new Error("Mensagem do erro");
+    if (!user.email) {
+      throw new Error("Not be you admin");
     }
 
-    return admin;
+    return user;
   }
 }
 

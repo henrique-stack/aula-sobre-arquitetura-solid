@@ -12,7 +12,7 @@ class CreateUserController {
       const user = this.createUserUseCase.execute({ email, name });
       return response.status(201).send(user);
     } catch (error) {
-      return response.status(400).json({ error: "error in create user" });
+      return response.status(400).json({ error: "Unexpected error" });
     }
   }
 }

@@ -8,12 +8,13 @@ class ListAllUsersController {
   handle(request: Request, response: Response): Response {
     const { user_id } = request.headers;
 
-    const admin = this.listAllUsersUseCase.execute({ user_id });
+    try {
+      const admin = this.listAllUsersUseCase.execute(typeof user_id);
 
-    if (!admin) {
-      throw new Error("you don'ts a user/admin");
+      return response.status(201).send(admin);
+    } catch (err) {
+      return response.status(400).json({ messge: err.message });
     }
-    return response.send(admin);
   }
 }
 

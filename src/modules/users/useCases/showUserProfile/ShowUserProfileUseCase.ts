@@ -13,7 +13,7 @@ class ShowUserProfileUseCase {
     this.usersRepository.turnAdmin(user);
 
     if (!user) {
-      throw new Error("Mensagem do erro");
+      throw new Error("User not found");
     }
 
     return user;

@@ -10,7 +10,7 @@ class TurnUserAdminController {
     const admin = this.turnUserAdminUseCase.execute({ user_id });
 
     if (!admin) {
-      return response.status(404).json({ error: "Message error " });
+      return response.status(404).json({ error: "Admin not found!" });
     }
     return response.status(201).send(admin);
   }
