@@ -1,0 +1,154 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API para gerenciamento de usuaríos",
+    "description": "com esta api você pode cadastrar usuários e torna-los administradores do sistema",
+    "version": "1.0.0",
+    "contact": {
+      "email": "henriquelimaribeiro4@gmail.com",
+      "number": "99984629875"
+    }
+  },
+  "host": "http://localhost:3333/api-docs",
+  "tags": [
+    {
+      "name": "users",
+      "description": "Gerenciamento de Usuário",
+      "summary": "Usamos esta rota para criar usuários",
+      "url": "http://localhost:3333/api-docs/"
+    }
+  ],
+  "schemes": ["https", "http"],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Create user",
+        "description": "Create user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "admin": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "name": "Guga manager",
+                    "email": "Gugamanager@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "400": "Unexpected error"
+        }
+      },
+        "get": {
+          "tags": ["users"],
+          "summary": "List all users",
+          "description": "list all users",
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": [
+                      {
+                        "admin": true,
+                        "name": "Guga manager",
+                        "email": "Gugamanager@gmail.com",
+                        "created_at": "new Date()",
+                        "updated_at": "new Date()"
+                      },
+                      {
+                        "admin": false,
+                        "name": "Guga manager",
+                        "email": "Gugamanager@gmail.com",
+                        "created_at": "new Date()",
+                        "updated_at": "new Date()"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Not found users"
+            }
+          }
+        }
+    },
+      "/users/{user_id}/": {
+        "get": {
+          "tags": ["users"],
+          "summary": "Select users by ID",
+          "description": "get user by id, only for users admin",
+          "operationId": "getUserById",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "description": "ID user want need be selected",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "User selected"
+            },
+            "404": { "description": "Unexpected error" }
+          }
+        }
+      },
+      "/users/{user_id}/admin": {
+        "patch": {
+          "tags": ["users"],
+          "summary": "Select user ID for turn Admin",
+          "description": "get user by id, only for users admin",
+          "operationId": "getUserById",
+          "produces": ["application/json"],
+          "parameters": {
+              "in": "body",
+              "name": "body",
+              "description": "The ID user that need be selected for the turn in admin",
+              "required": false
+          },
+          "responses": {
+            "201": {
+              "description": "User selected"
+            },
+            "404": { "description": "Unexpected error" }
+          }
+        }
+      }
+    }
+  }
