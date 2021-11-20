@@ -5,4 +5,4 @@ import swaggerFile from "../swagger.json";
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
-app.listen(3333, () => console.log("Server is running!: port 3333"));
+app.listen(3530, () => console.log("Server is running!: port 3333"));

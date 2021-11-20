@@ -4,22 +4,19 @@ import { IUsersRepository } from "../../repositories/IUsersRepository";
 class ListAllUsersUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  execute(user_id: string): User[] {
-    const user = this.usersRepository.findById(user_id);
-    if (user.id !== user_id) {
-      throw new Error("User not found");
+  execute(id: string): User[] {
+    const user_adminID = this.usersRepository.findById(id);
+
+    if (!user_adminID) {
+      throw new Error("Mensagem do erro");
     }
 
-    if (!user) {
-      throw new Error("User not exists");
+    if (!user_adminID.admin === true) {
+      throw new Error("Mensagem do erro");
     }
 
-    if (user.admin === false) {
-      throw new Error("You not is an admin");
-    }
-
-    return this.usersRepository.list();
+    const list = this.usersRepository.list();
+    return list;
   }
 }
-
 export { ListAllUsersUseCase };
