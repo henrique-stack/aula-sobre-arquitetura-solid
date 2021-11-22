@@ -6,13 +6,15 @@ class TurnUserAdminController {
   constructor(private turnUserAdminUseCase: TurnUserAdminUseCase) {}
 
   handle(request: Request, response: Response): Response {
-    const { user_id } = request.body;
-
     try {
-      this.turnUserAdminUseCase.execute({ user_id });
-      return response.status(201).send();
-    } catch (err) {
-      return response.status(404).json({ error: "User not found" });
+      const { user_id } = request.params;
+      const user = this.turnUserAdminUseCase.execute({
+        user_id: String(user_id),
+      });
+
+      return response.status(201).json(user);
+    } catch (e) {
+      return response.status(404).json({ error: e });
     }
   }
 }

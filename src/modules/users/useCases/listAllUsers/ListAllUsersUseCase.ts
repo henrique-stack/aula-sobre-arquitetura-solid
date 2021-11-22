@@ -1,22 +1,21 @@
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
+interface IRequest {
+  user_id: string;
+}
 class ListAllUsersUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  execute(id: string): User[] {
-    const user_adminID = this.usersRepository.findById(id);
+  execute({ user_id }: IRequest): User[] {
+    const user = this.usersRepository.findById(user_id);
 
-    if (!user_adminID) {
-      throw new Error("Mensagem do erro");
+    if (!user.admin) {
+      throw new Error("User don't found, please wait!");
     }
 
-    if (!user_adminID.admin === true) {
-      throw new Error("Mensagem do erro");
-    }
-
-    const list = this.usersRepository.list();
-    return list;
+    const listUsers = this.usersRepository.list();
+    return listUsers;
   }
 }
 export { ListAllUsersUseCase };

@@ -15,8 +15,8 @@ class TurnUserAdminUseCase {
       throw new Error("You couldn't be admin");
     }
 
-    this.usersRepository.turnAdmin(user);
-    return user;
+    const admin = this.usersRepository.turnAdmin(user);
+    return admin;
   }
 }
 
